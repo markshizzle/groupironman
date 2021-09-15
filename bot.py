@@ -4,13 +4,13 @@ import os
 from discord.ext import commands
 from dotenv import load_dotenv
 from functions import *
+import random
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
 intents = discord.Intents.default()
 intents.members = True
 bot = commands.Bot(command_prefix='!', intents=intents)
-
 
 @bot.command(name='ironman', help="Spams the sentence every iron man spams all day long.")
 async def ironman(ctx):
@@ -50,5 +50,8 @@ async def guide(ctx, *quest):
     ytlink = findYT(quest_name[0])
     await ctx.send(ytlink)
 
+@bot.command(name="joke", help="Randomly tells a joke, try it!")
+async def joke(ctx):
+    await ctx.send(random.choice(JOKES))
 
 bot.run(TOKEN)
